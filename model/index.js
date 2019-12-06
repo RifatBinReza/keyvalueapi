@@ -15,8 +15,9 @@ const sequelize = new Sequelize(
  * Get all the models for exporting
  */
 const models = {
-
+  keyValue: require('./key_value')
 };
+
 Object.keys(models).forEach(key => {
   if ("associate" in models[key]) {
     models[key].associate(models);
