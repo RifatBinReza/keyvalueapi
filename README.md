@@ -73,3 +73,74 @@ Response
 - `npm start //for starting the appication`
 
 Make sure you have a postgres database setup and credentials are given in a `.env` file.
+
+### POST
+Endpoint `https://keyvalueapi.herokuapp.com/api/object`
+
+Body
+```json
+{
+    "key" : "9d5ed769-a97a-47d5-8acb-0586f1cf660d",
+    "value": {
+        "name": "Node.js",
+         "version": "v10.15.3"
+    }
+}
+```
+
+Response
+```json
+{
+    "status": "success",
+    "message": "Successfully saved data",
+    "data": {
+        "id": 1,
+        "key": "9d5ed769-a97a-47d5-8acb-0586f1cf660d",
+        "value": {
+            "name": "Node.js",
+            "version": "v10.15.3"
+        },
+        "timestamp": "2019-12-06T20:52:06.000Z"
+    }
+}
+```
+
+### GET
+Endpoint `https://keyvalueapi.herokuapp.com/api/object/9d5ed769-a97a-47d5-8acb-0586f1cf660d`
+
+Response
+```json
+{
+    "status": "success",
+    "message": "Found data",
+    "data": {
+        "id": 1,
+        "key": "9d5ed769-a97a-47d5-8acb-0586f1cf660d",
+        "value": {
+            "name": "Node.js",
+            "version": "v10.15.3"
+        },
+        "timestamp": "2019-12-06T20:52:06.000Z"
+    }
+}
+```
+
+### GET
+Endpoint `https://keyvalueapi.herokuapp.com/api/object/9d5ed769-a97a-47d5-8acb-0586f1cf660d?timestamp=1575666271`
+
+Response
+```json
+{
+    "status": "success",
+    "message": "Found data",
+    "data": {
+        "id": 1,
+        "key": "9d5ed769-a97a-47d5-8acb-0586f1cf660d",
+        "value": {
+            "name": "Node.js",
+            "version": "v10.15.3"
+        },
+        "timestamp": "2019-12-06T20:52:06.000Z"
+    }
+}
+```
