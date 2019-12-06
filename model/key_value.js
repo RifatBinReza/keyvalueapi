@@ -8,11 +8,15 @@ module.exports = (Sequelize, DataTypes) => {
       value: {
         type: DataTypes.JSON
       },
+      timestamp: {
+        type: DataTypes.DATE
+      }
     },
     {
       underscored: true,
       freezeTableName: true,
       tableName: "key_value",
+      timestamps: false,
     }
   );
   return KeyValue;

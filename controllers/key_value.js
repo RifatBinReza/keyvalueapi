@@ -18,9 +18,11 @@ exports.saveObject = (req, res)=>{
         data: data
       });
     } else {
+      // Save key value to database
       models.keyValue.create({
         key: data.key,
         value: data.value,
+        timestamp: moment().utc().format(),
       }).then(keyValue=>{
         res.status(200).json({
           status: 'success',
@@ -30,4 +32,28 @@ exports.saveObject = (req, res)=>{
       })
     }
   })
+}
+
+exports.getObjectByKey = (req, res)=>{
+  const key = req.params.key
+  if(key){
+    models.keyValue.findOne({
+      where: {
+        key: key
+      },
+      order: [["timestamp", "DESC"]],
+    }).then(keyValue=>{
+      res.status(200).json({
+        status: "success",
+        message: "Found data",
+        data: keyValue
+      });
+    })
+  } else {
+    res.status(422).json({
+      status: "error",
+      message: "Invalid request with no key in parameter",
+      data: null
+    });
+  }
 }
