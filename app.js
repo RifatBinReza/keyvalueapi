@@ -1,8 +1,7 @@
-
 /**
  * Module dependencies.
  */
-require("dotenv").config();
+require("dotenv").config(); //Load environment variables to access from process.env
 const express = require("express");
 const bodyParser = require("body-parser");
 const chalk = require("chalk");
@@ -11,14 +10,10 @@ const errorHandler = require("errorhandler");
 const moment = require("moment");
 
 /**
- * Load environment variables from .env file, where all the credentials are configured.
+ * Require essentials like routes, models, controllers etc
  */
-// dotenv.load({ path: ".env" });
-
-/**
- * Get the databse connection
- */
-const { sequelize } = require("./model");
+const { sequelize, models } = require("./model");
+const apiRoutes = require('./routes/api')
 
 /**
  * Create Express server.
@@ -38,6 +33,12 @@ app.use(
     parameterLimit: 50000
   })
 );
+
+/**
+ * API Routes
+ */
+app.use('/api', apiRoutes)
+
 
 /**
  * Error Handler.
