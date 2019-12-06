@@ -43,7 +43,10 @@ app.use('/api', apiRoutes)
  * Error Handler.
  */
 app.get("*", (req, res) => {
-  res.redirect("/");
+  res.status(404).json({
+    status: 'error',
+    message: 'Route not found'
+  });
 });
 
 if (process.env.NODE_ENV === "development") {
