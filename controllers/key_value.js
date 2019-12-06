@@ -1,6 +1,7 @@
 const {models} = require('../model');
 const Joi = require('joi');
 const moment = require("moment");
+const { Op } = require("sequelize");
 
 exports.saveObject = (req, res)=>{
   const data = req.body;
@@ -36,12 +37,24 @@ exports.saveObject = (req, res)=>{
 
 exports.getObjectByKey = (req, res)=>{
   const key = req.params.key
+  let timestamp = req.query.timestamp
+
   if(key){
+    let where = {
+      key: key
+    }
+    if(timestamp){
+      timestamp = moment.unix(timestamp).utc().toDate()
+      where = {
+        ...where,
+        timestamp: {
+          [Op.lte]: timestamp,
+        }
+      }
+    }
     models.keyValue.findOne({
-      where: {
-        key: key
-      },
-      order: [["timestamp", "DESC"]],
+      where: where,
+      order: [["timestamp", 'DESC']],
     }).then(keyValue=>{
       res.status(200).json({
         status: "success",
