@@ -70,3 +70,5 @@ sequelize.sync().then(() => {
     console.log("  Press CTRL-C to stop\n");
   });
 });
+
+module.exports = app
