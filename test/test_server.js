@@ -9,6 +9,8 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
+//TODO: Add more test cases for failed events and required parameters or query validations.
+
 describe('key_values', ()=>{
 
   /**
