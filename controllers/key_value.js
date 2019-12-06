@@ -1,5 +1,6 @@
 const {models} = require('../model');
 const Joi = require('joi');
+const moment = require("moment");
 
 exports.saveObject = (req, res)=>{
   const data = req.body;
@@ -17,8 +18,15 @@ exports.saveObject = (req, res)=>{
         data: data
       });
     } else {
-      res.status(200).json({
-        status: 'success',
+      models.keyValue.create({
+        key: data.key,
+        value: data.value,
+      }).then(keyValue=>{
+        res.status(200).json({
+          status: 'success',
+          message: 'Successfully saved data',
+          data: keyValue.get({ plain:true })
+        })
       })
     }
   })

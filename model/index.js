@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
  * Get all the models for exporting
  */
 const models = {
-  keyValue: require('./key_value')
+  keyValue: require("./key_value")(sequelize, Sequelize)
 };
 
 Object.keys(models).forEach(key => {

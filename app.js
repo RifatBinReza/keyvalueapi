@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const chalk = require("chalk");
 const dotenv = require("dotenv");
 const errorHandler = require("errorhandler");
-const moment = require("moment");
 
 /**
  * Require essentials like routes, models, controllers etc
