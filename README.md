@@ -63,3 +63,13 @@ Response
 ```
 - still return value1 , because value2 was only added at 6.05pm
 - All timestamps are unix timestamps according UTC timezone.
+
+
+# Installing and Using
+- Clone this repository
+- `cd keyvalueapi`
+- `npm install`
+- `npm test //for running test cases`
+- `npm start //for starting the appication`
+
+Make sure you have a postgres database setup and credentials are given in a `.env` file.
