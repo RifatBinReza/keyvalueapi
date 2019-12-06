@@ -3,6 +3,10 @@ const Joi = require('joi');
 const moment = require("moment");
 const { Op } = require("sequelize");
 
+/**
+ * function: saveObject
+ * task: Saving key value object to database with proper validation
+ */
 exports.saveObject = (req, res)=>{
   const data = req.body;
   // Validate our database schema with Joi
@@ -35,21 +39,38 @@ exports.saveObject = (req, res)=>{
   })
 }
 
+/**
+ * function: getObjectByKey
+ * task: Gets an object by the key provided in parameter.
+ * Also returns an object matching the timestamp given in query string
+ */
 exports.getObjectByKey = (req, res)=>{
   const key = req.params.key
   let timestamp = req.query.timestamp
-
+  // Validate if any key was provided
   if(key){
     let where = {
       key: key
     }
+    // If timestamp was provided with that key, return data matching that timestamp
     if(timestamp){
-      timestamp = moment.unix(timestamp).utc().toDate()
-      where = {
-        ...where,
-        timestamp: {
-          [Op.lte]: timestamp,
-        }
+      if (moment(timestamp, 'x', true).isValid()) { //Validate timestamp provided in the query
+        timestamp = moment
+          .unix(timestamp)
+          .utc()
+          .toDate();
+        where = {
+          ...where,
+          timestamp: {
+            [Op.lte]: timestamp
+          }
+        };
+      } else {
+        return res.status(422).json({
+          status: "error",
+          message: "Invalid request with invalid timestamp",
+          data: null
+        });
       }
     }
     models.keyValue.findOne({
